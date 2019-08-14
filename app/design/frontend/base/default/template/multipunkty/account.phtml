@@ -1,0 +1,88 @@
+<?php
+    $helper = Mage::helper('multipunkty');
+    $isActive = false;
+    
+    if($this->getCustomer()->getMultipunktyUserid())
+    {
+        $isActive = true;
+    }
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('MultiPunkty') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('multipunkty/customer/editPost') ?>" method="post" id="form-validate">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $helper->__('Account information') ?></h2>
+        <ul class="form-list mp-customer-stats">
+            <li>
+                <?php echo $helper->__('User status: '); ?> 
+                <span class="mp-user-status<?php if($isActive) echo ' active'; ?>">
+                <?php
+                    if($isActive)
+                    {
+                        echo $helper->__('Active');
+                    }else{
+                        echo $helper->__('Inactive');
+                    }
+                ?>    
+                </span>
+            </li>
+            <li>
+                <?php echo $helper->__('User login: '); ?>
+                <span class="mp-user-login">
+                <?php 
+                    if($this->getCustomer()->getMultipunktyUserlogin())
+                    {
+                        echo $this->getCustomer()->getMultipunktyUserlogin();
+                    }else{
+                        echo $helper->__('Not able ');
+                    }
+                ?>
+                </span>
+            </li>
+            <li></li>
+            <li>
+                <a style="color: #ea7900;" href="<?php echo $helper->getHomePageUrl(); ?>" target="_blank">
+                    <?php echo $helper->__('Click here to check your MultiPoints status and get to your account panel in MultiPunkty.pl service'); ?>
+                </a>
+            </li>
+        </ul>
+        <div class="buttons-set">
+            <?php if($isActive): ?>
+                <button type="button" title="<?php echo $helper->__('Unregister account') ?>" class="button" onclick="unregisterAcc()"><span><span><?php echo $helper->__('Unregister account') ?></span></span></button>
+            <?php else: ?>
+                <button type="button" title="<?php echo $helper->__('Register account') ?>" class="button" onclick="registerAcc()"><span><span><?php echo $helper->__('Register account') ?></span></span></button>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $helper->__('Back') ?></a></p>
+    </div>
+</form>
+<form id="register-form" action="<?php echo $this->getUrl('multipunkty/customer/register') ?>" method="post">
+    <input id="register-mpid" type="hidden" name="mpid" value="" />
+    <input id="register-login" type="hidden" name="login" value="" />
+</form>
+<script type="text/javascript">
+//<![CDATA[
+function registerAcc()
+{
+    $MP.api.getCurrentUser(function(user) {
+        if (!user) { 
+            alert('<?php echo $helper->__('There was an error when logging into MultiPunkty service - try again.'); ?>'); 
+        } else {
+            $('register-mpid').setAttribute('value', user.mpid);
+            $('register-login').setAttribute('value', user.login);
+            $('register-form').submit();
+        }
+    });
+}
+
+function unregisterAcc()
+{
+    setLocation('/multipunkty/customer/unregister');
+}
+//]]>
+</script>

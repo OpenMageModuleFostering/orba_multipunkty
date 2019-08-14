@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <multipunkty translate="label" module="multipunkty">
+            <label>ORBA | MultiPunkty.pl</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <start_settings traslate="label">
+                    <label>MultiPunkty.pl loyalty program start</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <account_register_btn translate="label,comment">
+                            <label>MultiPunkty.pl Account</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_button_register</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </account_register_btn>
+                        <points_amount translate="label">
+                            <label>Number of points</label>
+                            <frontend_model>multipunkty/adminhtml_system_text_points</frontend_model>
+                            <backend_model>multipunkty/system_config_backend_points</backend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </points_amount>
+                        <launch_service translate="label,comment">
+                            <label>Launch Service</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_service_launch</frontend_model>
+                            <backend_model>multipunkty/system_config_backend_service_launch</backend_model>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </launch_service>
+                        <service_status translate="label">
+                            <label>Service status</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_service_status</frontend_model>
+                            <backend_model>multipunkty/system_config_backend_service_status</backend_model>
+                            <source_model>multipunkty/system_config_source_enabledisable</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </service_status>
+                    </fields>
+                </start_settings>
+                <basic_config translate="label">
+                    <label>API Configuration</label>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <api_key translate="label,comment">
+                            <label>Store API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_select_disabled</frontend_model>
+                            <comment>This value is used for store identification with MultiPunkty.pl service</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_key>
+                        <private_key translate="label">
+                            <label>Private Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_select_disabled</frontend_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </private_key>
+                        <partner_id translate="label">
+                            <label>Partner ID</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>multipunkty/adminhtml_system_select_disabled</frontend_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </partner_id>
+                     </fields>
+                </basic_config>
+                <rewarding_settings translate="label">
+                        <label>Rewarding settings</label>
+                        <sort_order>20</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <fields>
+                           <reward_purchase translate="label,comment">
+                                <label>Reward for purchase</label>
+                                <frontend_type>text</frontend_type>
+                                <comment>Amount of MP$ for 1PLN. Minimal value: 1</comment>
+                                <sort_order>10</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                           </reward_purchase>
+                           <apply_cash_on_delivery translate="label,comment">
+                                <label>Payment type accepted by MultiPunkty module</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>multipunkty/system_config_source_payment_methods</source_model>
+                                <comment>W przypadku wybrania opcji "płatność z góry"- MultiPunkty są naliczane  po dokonaniu płatności on line za towar. Ma to zachęcić Klientów do wybrania opcji zapłaty przed dostarczeniem towaru. Sklep może podjąć decyzję o przyznawaniu MultiPunktów również w przypadku, gdy Klient wybierze opcję "za pobraniem"</comment>
+                                <sort_order>20</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                           </apply_cash_on_delivery>
+                           <days_after_trans_act translate="label,comment">
+                               <label>Points activation time</label>
+                                <comment>Klient po dokonaniu zakupu w sklepie otrzymuje MultiPunkty. Przez określony czas (związany z możliwością zwrócenie towaru) punkty mają status nieaktywnych (nie można za nie odebrać nagrody). Po tym zdefiniowanym czasie MultiPunkty stają się aktywne. W przypadku zwrotu towaru  przez Klienta w zdefiniowanym okresie MultiPunkty wracają na konto sklepu. Status poszczególnych transakcji jest dostępny z poziomu programu MultiPunkty.pl</comment>
+                                <frontend_type>select</frontend_type>
+                                <source_model>multipunkty/system_config_source_points_ttl</source_model>
+                                <sort_order>30</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                           </days_after_trans_act>
+                        </fields>
+                </rewarding_settings>
+                <!-- Will be use in 2nd stage of implementation
+                <recommending_settings>
+                    <label>Recommending</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                       <reward_comment translate="label,comment">
+                            <label>Reward for comment</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Amount of MP$. Minimal value: 1</comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                       </reward_comment>
+                       <reward_recommend_store translate="label,comment">
+                            <label>Reward for store recommendation</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Amount of MP$. Minimal value: 1</comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                       </reward_recommend_store>
+                       <reward_recommend_product translate="label,comment">
+                            <label>Reward for product recommendation</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Amount of MP$. Minimal value: 1</comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                       </reward_recommend_product>
+                    </fields>
+                </recommending_settings>
+                --> 
+               <presenting_information translate="label">
+                        <label>Presenting information about MultiPunkty.pl service settings</label>
+                        <sort_order>40</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <fields>
+                            <show_on_homepage translate="label">
+                                <label>Show information on homepage</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>10</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </show_on_homepage>
+                            <show_near_product translate="label">
+                                <label>Show information near product</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>20</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </show_near_product>
+                            <show_near_shopping_cart translate="label">
+                                <label>Show information near shopping cart</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>30</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </show_near_shopping_cart>
+                            <show_on_summary translate="label">
+                                <label>Show information after purchase (in summary)</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>40</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </show_on_summary>
+                            <show_by_mail translate="label">
+                                <label>Show information in mail after purchase</label>
+                                <frontend_type>select</frontend_type>
+                                <frontend_model>multipunkty/adminhtml_system_select_disabled</frontend_model>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>50</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </show_by_mail>
+                        </fields>
+                </presenting_information>
+                <!-- Will be use in 2nd stage of implementation
+                <promote_action_settings>
+                        <label>Promotional campaigns settings</label>
+                        <sort_order>50</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                </promote_action_settings>
+                -->
+                <!-- Will be use in 2nd stage of implementation
+                <rewards_catalog>
+                        <label>Rewards Catalog</label>
+                        <sort_order>60</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                        <fields>
+                            <include_products_in_catalog>
+                                    <label>Add products to Rewards Catalog</label>
+                                    <frontend_type>select</frontend_type>
+                                    <source_model>multipunkty/system_config_source_rewardscatalog_options</source_model>
+                                    <sort_order>10</sort_order>
+                                    <show_in_default>1</show_in_default>
+                                    <show_in_website>1</show_in_website>
+                                    <show_in_store>1</show_in_store>
+                            </include_products_in_catalog>
+                        </fields>
+                </rewards_catalog>
+                -->
+            </groups>
+	</multipunkty>
+   </sections>
+</config>

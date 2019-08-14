@@ -1,0 +1,115 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * One page checkout payment methods
+ *
+ * @see Mage_Checkout_Block_Onepage_Payment_Methods
+ */
+?>
+<dl class="sp-methods" id="checkout-payment-method-load">
+<?php
+    $methods = $this->getMethods();
+    $oneMethod = count($methods) <= 1;
+?>
+<?php
+    foreach ($methods as $_method):
+        $_code = $_method->getCode();
+?>
+    <dt>
+    <?php if(!$oneMethod): ?>
+        <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>');"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> class="radio" />
+    <?php else: ?>
+        <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio" /></span>
+        <?php $oneMethod = $_code; ?>
+    <?php endif; ?>
+        <label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+    </dt>
+    <?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+    <dd>
+        <?php echo $html; ?>
+    </dd>
+    <?php endif; ?>
+<?php endforeach; ?>
+</dl>
+
+<?php 
+    $_coreHelper = $this->helper('core');
+    //$_aboutUrl = Mage::helper('multipunkty')->getAboutMPSiteUrl();
+
+    $total = Mage::getModel('checkout/cart')->getQuote()->getData("subtotal");
+    
+    $_helper = Mage::helper('multipunkty');
+    $mpNumber = ceil($_coreHelper->currency($total*$_helper->getPurchaseReward(), false, false));
+    $useSpecialBlock = !$_helper->isCashOnDeliveryAccepted() && $_helper->isActive();
+    
+    if($useSpecialBlock && $mpNumber > 0):
+?>
+<div id="mp-info-msg" style="display: none;">
+    <div class="close" title="<?php echo $_helper->__("Close message window"); ?>">X</div>
+    <div class="txt">
+        <span class="title"><?php echo $_helper->__('%d Multipoints (MP$) will not be given to user',$mpNumber); ?></span><br />
+        <span class="descr"><?php echo $_helper->__('You will receive your MP$ if you will pay on purchase'); ?></span>
+    </div>
+</div>
+<?php endif; ?>
+
+
+<?php echo $this->getChildChildHtml('additional'); ?>
+<script type="text/javascript">
+//<![CDATA[
+<?php echo $this->getChildChildHtml('scripts'); ?>
+payment.init();
+<?php if (is_string($oneMethod)): ?>
+    payment.switchMethod('<?php echo $oneMethod ?>');
+<?php endif; ?>
+<?php if($useSpecialBlock): ?>
+    if($('p_method_cashondelivery').checked === true)
+    {
+        $('mp-info-msg').show();
+    }
+    Event.observe($('mp-info-msg'),'click',function(event) {
+        var elem = event.element();
+
+        if(elem.hasClassName('close'))
+        {
+            $('mp-info-msg').hide();
+        }
+    });
+    Event.observe($('checkout-payment-method-load'),'click',function(event) { 
+        var elem = event.element();
+
+        if(elem.id === 'p_method_cashondelivery')
+        {
+            $('mp-info-msg').show();
+        }else{
+            $('mp-info-msg').hide();
+        }
+    });
+<?php endif; ?>
+//]]>
+</script>

@@ -1,0 +1,11 @@
+<?php
+$_coreHelper = $this->helper('core');
+$_product = Mage::registry('current_product'); 
+$aboutUrl = Mage::helper('multipunkty')->getAboutMPSiteUrl();
+?>
+<?php if ($this->isVisible() AND $this->getPurchaseReward() > 0): ?>
+<div class="price-box">
+    <?php echo $this->__('Przy zakupie tego towaru otrzymasz'); ?> <span class="regular-price"><span class="price"><?php echo ceil($_coreHelper->currency($_product->getFinalPrice()*$this->getPurchaseReward(), false, false)); ?> MP$</span></span>
+    <br /><a href="<?php echo $aboutUrl; ?>" target="_blank"> <?php echo $this->__('Czym są MultiPunkty.pl?'); ?></a>
+</div>
+<?php endif; ?>

@@ -1,0 +1,46 @@
+<?php
+//$_coreHelper = $this->helper('core');
+
+$sOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+//$oOrder = Mage::getModel('sales/order')->load($sOrderId);
+
+$mp = Mage::getModel('multipunkty/transaction');
+$mp->load($sOrderId, 'order_id');
+?>
+
+<?php if ($this->isVisible()): ?>
+	<?php if ($this->getPurchaseReward() > 0): ?>
+		<?php if ($mp->getStatus() == 1): ?>
+		<ul class="messages">
+			<li class="notice-msg">
+				<ul>
+					<li><?php echo $this->__('Punkty zostały przyznane pomyślnie. Pod poniższym linkiem będziesz miał(a) możliwość sprawdzenia statusu punktów') ?></li>
+					<li><a href="<?php echo $mp->getAssignUrl(); ?>" target="_blank"><?php echo $mp->getAssignUrl(); ?></a></li>
+				</ul>
+			</li>
+		</ul>
+		<?php endif; ?>
+		
+		<?php if ($mp->getStatus() == 2): ?>
+		<ul class="messages">
+			<li class="notice-msg">
+				<ul>
+					<li><?php echo $this->__('Identyfikator konta MultiPunkty podany w profilu jest prawdopodobnie błędny lub nie został wprowadzony. Aby odebrać punkty kliknij w poniższy link') ?></li>
+                                        <li><a href="<?php echo $mp->getAssignUrl(); ?>" target="_blank"><?php echo $mp->getAssignUrl(); ?></a></li>
+				</ul>
+			</li>
+		</ul>
+		<?php endif; ?>
+		
+		<?php if ($mp->getStatus() == 3): ?>
+		<ul class="messages">
+			<li class="notice-msg">
+				<ul>
+					<li><?php echo $this->__('Aby odebrać punkty kliknij w poniższy link') ?></li>
+					<li><a href="<?php echo $mp->getAssignUrl(); ?>" target="_blank"><?php echo $mp->getAssignUrl(); ?></a></li>
+				</ul>
+			</li>
+		</ul>
+		<?php endif; ?>    
+	<?php endif; ?>
+<?php endif; ?>

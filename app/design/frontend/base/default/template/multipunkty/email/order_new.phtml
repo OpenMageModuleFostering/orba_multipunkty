@@ -1,0 +1,50 @@
+<?php
+    $helper = Mage::helper('multipunkty');
+    $order = $this->getData('order');
+    $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+    $pointsScaler = Mage::helper('multipunkty')->getPurchaseReward();
+    $total = $order->getSubtotal();
+    $points = ceil(Mage::helper('core')->currency($total*$pointsScaler, false, false));
+    
+    $mp = Mage::getModel('multipunkty/transaction');
+    $mp->load($order->getId(), 'order_id');
+?>
+<br />
+<p style="font-weight: bold;">
+    <?php echo $helper->__('Thank you for shopping!'); ?>
+</p>
+
+<?php if($customer->getMultipunktyUserid() && $mp->getStatus() == 1): ?>
+<p style="color: orange; font-weight: bold; margin-bottom: 12px;">
+    <?php echo $helper->__('You received %d MultiPoints',$points); ?> (<?php echo $points; ?> MP$)
+</p>
+<p>
+    <?php echo $helper->__('Check your MP$ status and rewards that you can receive!'); ?> <a href="<?php echo $helper->getHomePageUrl(); ?>" target="_blank" style="font-weight: bold; color: black; text-decoration: underline;">(MultiPunkty.pl)</a>
+</p>
+<?php else: ?>
+<?php
+    $transaction = Mage::getModel('multipunkty/transaction')->load($order->getId(), 'order_id');
+    
+    if($transaction->getId())
+    {
+        $assignUrl = $transaction->getAssignUrl();
+    }else{
+        $assignUrl = null;
+    }
+?>
+<p style="font-weight: bold; margin-bottom: 12px;">
+    <?php echo $helper->__('You received %d MultiPoints',$points); ?> (<?php echo $points; ?> MP$)
+</p>
+<p style="color: orange; font-weight: bold;">
+    <?php echo $helper->__('Receive your MultiPoints and exchange them into rewards (over 1 000 rewards to choose)'); ?>
+</p>
+<p>
+    <?php echo $helper->__('More than 250 000 people gather MP$'); ?>
+</p>
+<?php endif; ?>
+<?php if(!is_null($assignUrl)): ?>
+<p>    
+    <?php echo $helper->__('Click on the link above to register your MultiPoints'); ?><br />
+    <a href="<?php echo $assignUrl; ?>" target="_blank"><?php echo $assignUrl; ?></a>
+</p>
+<?php endif; ?>

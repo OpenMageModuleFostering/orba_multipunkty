@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Orba_Multipunkty>
+             <active>true</active>
+             <codePool>community</codePool>
+        </Orba_Multipunkty>
+    </modules>
+</config>

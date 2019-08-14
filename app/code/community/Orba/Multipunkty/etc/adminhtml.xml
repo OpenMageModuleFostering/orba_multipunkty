@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+     <menu>
+        <sales>
+            <children>
+                <multipunkty translate="title" module="multipunkty">
+                    <title>Loyalty program</title>
+                    <sort_order>290</sort_order>
+                    <action>adminhtml/system_config/edit/section/multipunkty</action>
+                </multipunkty>
+            </children>
+        </sales>
+    </menu>
+</config>

@@ -1,0 +1,19 @@
+<?php
+$_coreHelper = $this->helper('core');
+
+$sOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+$oOrder = Mage::getModel('sales/order')->load($sOrderId);
+
+$total = $oOrder->getSubtotal();
+$aboutUrl = Mage::helper('multipunkty')->getAboutMPSiteUrl();
+?>
+<?php if ($this->isVisible() AND $this->getPurchaseReward() > 0): ?>
+<ul class="messages">
+    <li class="notice-msg">
+        <ul>
+            <li><?php echo $this->__('Za zakupione towary otrzymałeś łącznie').' '.ceil($_coreHelper->currency($total*$this->getPurchaseReward(), false, false)); ?> MP$</li>
+            <li><a href="<?php echo $aboutUrl; ?>" target="_blank"> <?php echo $this->__('Zobacz czym są MultiPunkty.pl'); ?></a></li>
+        </ul>
+    </li>
+</ul>
+<?php endif; ?>
