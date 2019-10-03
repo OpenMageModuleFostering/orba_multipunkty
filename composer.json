@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Orba_Multipunkty",
+    "name": "OpenMageModuleFostering\/Orba_Multipunkty",
     "type": "magento-module",
     "license": "Academic-Free-License-(AFL)",
     "homepage": "",
-    "description": "MultiPunkty.pl service integration / Integracja z serwisem MultiPunkty.pl",
+    "description": "MultiPunkty.pl service integration \/ Integracja z serwisem MultiPunkty.pl",
     "authors": [
-    {
-        "name": "ORBA",
-        "email": "magento@orba.pl"
-    }
-],
+        {
+            "name": "ORBA",
+            "email": "magento@orba.pl"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
